@@ -9,14 +9,26 @@
     "dist"
   ],
   "license": "MIT",
-  "scripts": {},
   "keywords": [
     "chatbot",
     "koishi",
     "plugin"
   ],
-  "devDependencies": {},
   "peerDependencies": {
     "koishi": "^4.17.9"
+  },
+  "devDependencies": {
+    "esbuild": "^0.18.20",
+    "esbuild-register": "npm:@shigma/esbuild-register@^1.1.1",
+    "koishi": "^4.13.9",
+    "koishi-plugin-puppeteer": "^3.5.0",
+    "typescript": "^5.4.3",
+    "yakumo": "^1.0.0-beta.16",
+    "yakumo-esbuild": "^1.0.0-beta.6",
+    "yakumo-tsc": "^1.0.0-beta.4",
+    "yml-register": "^1.2.5"
+  },
+  "dependencies": {
+    "@sfirew/minecraft-motd-parser": "^1.1.3"
   }
 }
