@@ -178,8 +178,8 @@ export class MCPinger {
     
             // 处理连接错误
             this.instance.on('error', (err) => {
-                console.error('连接出错:', err);
-                reject(err); // 返回错误
+                // console.error('连接出错:', err);
+                reject("连接出错"); // 返回错误
             });
         });
     }

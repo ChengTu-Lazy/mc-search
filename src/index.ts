@@ -1,4 +1,4 @@
-import { Context, Schema} from 'koishi'
+import { Context, Logger, Schema} from 'koishi'
 import { DataUpdater } from './DataUpdater'; 
 import { MCPinger } from './MCPinger'; 
 
@@ -39,29 +39,43 @@ export async function apply(ctx: Context,config:Config) {
     // Pinger2.Ping("cn.nekoland.top",25565);
   })
 
-// 更新sendMsg并存入字典
-async function updateSendMsg() {
-  let statusDict = {}; // 用于存储群号和sendMsg的字典
-  let serverCounter = 1; // 初始化服务器序号计数器
+  // 更新sendMsg并存入字典
+  async function updateSendMsg() {
+    let statusDict = {}; // 用于存储群号和sendMsg的字典
 
-  for (const SearchInfo of config.DefaultSearchInfo) {
-      const Pinger = new MCPinger(); 
-      const sendMsg = await Pinger.Ping(SearchInfo.IP, SearchInfo.端口);
+    // 创建一个字典来存储每个群号的计数器
+    const counterDict = {};
 
-      // 拼接服务器名，前面加上序号
-      const serverInfo = `${serverCounter}. [ ${SearchInfo.昵称} ]${sendMsg}`;
+    for (const SearchInfo of config.DefaultSearchInfo) {
+        try {
+            const Pinger = new MCPinger();
+            const sendMsg = await Pinger.Ping(SearchInfo.IP, SearchInfo.端口);
 
-      // 如果群号已存在，将新信息追加到现有消息中
-      if (statusDict[SearchInfo.群号] != undefined) {
-        statusDict[SearchInfo.群号] += `\n${serverInfo}`;
-      } else {
-        statusDict[SearchInfo.群号] = serverInfo;
-      }
+            // 初始化该群号的计数器，如果尚未存在
+            if (counterDict[SearchInfo.群号] == undefined) {
+                counterDict[SearchInfo.群号] = 1;
+            }
 
-      serverCounter++; // 每次循环后递增序号
+            // 拼接服务器名，前面加上序号
+            const serverInfo = `${counterDict[SearchInfo.群号]}. [ ${SearchInfo.昵称} ]${sendMsg}`;
+
+            // 如果群号已存在，将新信息追加到现有消息中
+            if (statusDict[SearchInfo.群号] != undefined) {
+                statusDict[SearchInfo.群号] += `\n${serverInfo}`;
+            } else {
+                statusDict[SearchInfo.群号] = serverInfo;
+            }
+
+            // 递增该群号的计数器
+            counterDict[SearchInfo.群号]++;
+        } catch (error) {
+            // 捕获并处理异常，记录错误日志或输出错误消息
+            ctx.logger.error(`群号 ${SearchInfo.群号}`, error)
+            continue;
+        }
+    }
+    return statusDict;
   }
-  return statusDict;
-}
 
   ctx.command("查MC").action(async (Session)=>{
     const guildId = Session.session.guildId;
