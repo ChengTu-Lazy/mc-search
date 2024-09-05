@@ -1,7 +1,7 @@
 {
   "name": "koishi-plugin-mc-search",
   "description": "查询我的世界服务器信息,查询在线人数和motd",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
   "files": [
