@@ -1,7 +1,7 @@
 {
   "name": "koishi-plugin-mc-search",
-  "description": "查询我的世界服务器信息,查询在线人数和motd",
-  "version": "0.0.3",
+  "description": "查询我的世界服务器信息,查询在线人数和motd(使用握手方式直接获取,非API请求)",
+  "version": "0.0.4",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
   "files": [
@@ -29,6 +29,5 @@
     "yml-register": "^1.2.5"
   },
   "dependencies": {
-    "@sfirew/minecraft-motd-parser": "^1.1.3"
   }
 }
