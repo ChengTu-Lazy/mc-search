@@ -1,19 +1,30 @@
 {
   "name": "koishi-plugin-mc-search",
   "description": "查询我的世界服务器信息,查询在线人数和motd(使用握手方式直接获取,非API请求)",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
   "files": [
     "lib",
     "dist"
   ],
+  "author": "ChengTu <1549737287@qq.com>",
   "license": "MIT",
   "keywords": [
-    "chatbot",
     "koishi",
-    "plugin"
+    "plugin",
+    "minecraft",
+    "ping",
+    "status"
   ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ChengTu-Lazy/mc-search.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ChengTu-Lazy/mc-search/issues"
+  },
+  "homepage": "https://github.com/ChengTu-Lazy/mc-search",
   "peerDependencies": {
     "koishi": "^4.17.9"
   },
